@@ -22,7 +22,8 @@ node_modules/
 # ────────────────────────────────────────────────────────────
 .env
 .env.*
-!.env.example        # keep the example template
+!.env.example
+!**/.env.example
 
 
 # ────────────────────────────────────────────────────────────
