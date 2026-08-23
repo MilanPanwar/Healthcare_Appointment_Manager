@@ -1,62 +1,157 @@
-# ──────────────────────────────────────────────
+# ============================================================
+#  HealthFlow — .gitignore
+#  Covers: Node.js, TypeScript, Vite, Prisma, React,
+#          environment secrets, OS artifacts, editors
+# ============================================================
+
+
+# ────────────────────────────────────────────────────────────
 # Dependencies
-# ──────────────────────────────────────────────
+# ────────────────────────────────────────────────────────────
 node_modules/
 .pnp
 .pnp.js
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
 
-# ──────────────────────────────────────────────
-# Build outputs
-# ──────────────────────────────────────────────
+
+# ────────────────────────────────────────────────────────────
+# Environment & Secrets  ← NEVER commit these
+# ────────────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example        # keep the example template
+
+
+# ────────────────────────────────────────────────────────────
+# Build / Compile outputs
+# ────────────────────────────────────────────────────────────
 dist/
 build/
 out/
 .next/
+.nuxt/
+.svelte-kit/
 frontend/dist/
 backend/dist/
 
-# ──────────────────────────────────────────────
-# Environment & secrets — NEVER commit these
-# ──────────────────────────────────────────────
-.env
-.env.local
-.env.development
-.env.production
-.env.test
-!.env.example
 
-# ──────────────────────────────────────────────
-# Prisma
-# ──────────────────────────────────────────────
-backend/prisma/*.db
-backend/prisma/*.db-journal
+# ────────────────────────────────────────────────────────────
+# Prisma — local SQLite database files
+# ────────────────────────────────────────────────────────────
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+backend/prisma/migrations/*/migration_lock.toml
 
-# ──────────────────────────────────────────────
+
+# ────────────────────────────────────────────────────────────
+# TypeScript
+# ────────────────────────────────────────────────────────────
+*.tsbuildinfo
+*.js.map
+
+
+# ────────────────────────────────────────────────────────────
+# Vite / Webpack cache
+# ────────────────────────────────────────────────────────────
+.vite/
+.cache/
+*.local
+
+
+# ────────────────────────────────────────────────────────────
 # Logs
-# ──────────────────────────────────────────────
+# ────────────────────────────────────────────────────────────
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
+yarn-error.log*
 pnpm-debug.log*
-logs/
+lerna-debug.log*
 
-# ──────────────────────────────────────────────
-# TypeScript
-# ──────────────────────────────────────────────
-*.tsbuildinfo
 
-# ──────────────────────────────────────────────
-# OS & editor
-# ──────────────────────────────────────────────
+# ────────────────────────────────────────────────────────────
+# Test & Coverage
+# ────────────────────────────────────────────────────────────
+coverage/
+.nyc_output/
+*.lcov
+/test-results/
+/playwright-report/
+/playwright/.cache/
+
+
+# ────────────────────────────────────────────────────────────
+# Package manager lock files (keep only one)
+# Uncomment the line for the lock file you DON'T use
+# ────────────────────────────────────────────────────────────
+# yarn.lock
+# pnpm-lock.yaml
+
+
+# ────────────────────────────────────────────────────────────
+# Operating System
+# ────────────────────────────────────────────────────────────
+# macOS
 .DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
 Thumbs.db
-.vscode/
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+
+
+# ────────────────────────────────────────────────────────────
+# Editors & IDEs
+# ────────────────────────────────────────────────────────────
+# VS Code (keep workspace settings if you want, but exclude personal ones)
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+
+# JetBrains (WebStorm / IntelliJ)
 .idea/
+*.iml
+*.iws
+*.ipr
+
+# Vim / Emacs
 *.swp
 *.swo
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
 
-# ──────────────────────────────────────────────
-# Vite / testing
-# ──────────────────────────────────────────────
-coverage/
-.vite/
+# Sublime Text
+*.sublime-workspace
+
+
+# ────────────────────────────────────────────────────────────
+# Miscellaneous
+# ────────────────────────────────────────────────────────────
+*.pem
+*.key
+*.cert
+*.p12
+.vercel
+.netlify
+storybook-static/
