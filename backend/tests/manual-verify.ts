@@ -2,7 +2,7 @@ async function testFullFlow() {
   console.log('🧪 Starting End-to-End API Flow Verification...');
 
   // 1. Login as Patient
-  const loginRes = await fetch('http://localhost:5000/api/auth/login', {
+  const loginRes = await fetch('https://healthcare-appointment-manager-6f7c.onrender.com/api/auth/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email: 'john.doe@patient.local', password: 'Patient@12345' }),
@@ -12,13 +12,13 @@ async function testFullFlow() {
   const patientToken = loginRes.data.token;
 
   // 2. Fetch Doctors
-  const docsRes = await fetch('http://localhost:5000/api/doctors').then((r) => r.json());
+  const docsRes = await fetch('https://healthcare-appointment-manager-6f7c.onrender.com/api/doctors').then((r) => r.json());
   const doctor = docsRes.data.find((d: any) => d.user.email === 'dr.sarah@healthmanager.local') || docsRes.data[0];
   console.log('2. Selected Doctor:', doctor.user.firstName, doctor.user.lastName, `(${doctor.specialization.name})`);
 
   // 3. Check Availability
   const tomorrow = '2026-08-25'; // Tuesday
-  const availRes = await fetch(`http://localhost:5000/api/doctors/${doctor.id}/availability?date=${tomorrow}`).then((r) => r.json());
+  const availRes = await fetch(`https://healthcare-appointment-manager-6f7c.onrender.com/api/doctors/${doctor.id}/availability?date=${tomorrow}`).then((r) => r.json());
   const availableSlot = availRes.data.slots.find((s: any) => s.isAvailable);
   console.log('3. Found Available Slot:', availableSlot?.startTime, '-', availableSlot?.endTime);
 
@@ -27,7 +27,7 @@ async function testFullFlow() {
   }
 
   // 4. Hold Slot
-  const holdRes = await fetch('http://localhost:5000/api/appointments/hold-slot', {
+  const holdRes = await fetch('https://healthcare-appointment-manager-6f7c.onrender.com/api/appointments/hold-slot', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${patientToken}` },
     body: JSON.stringify({ doctorId: doctor.id, date: tomorrow, startTime: availableSlot.startTime }),
@@ -35,7 +35,7 @@ async function testFullFlow() {
   console.log('4. 5-Min Slot Hold Created:', holdRes.success ? '✅ Success' : '❌ Failed', holdRes.data?.holdId);
 
   // 5. Book Appointment with Symptoms
-  const bookRes = await fetch('http://localhost:5000/api/appointments', {
+  const bookRes = await fetch('https://healthcare-appointment-manager-6f7c.onrender.com/api/appointments', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${patientToken}` },
     body: JSON.stringify({
@@ -53,7 +53,7 @@ async function testFullFlow() {
 
   // 6. Inspect Appointment Details & Pre-Visit AI Triage
   await new Promise((resolve) => setTimeout(resolve, 1000)); // wait brief moment for async AI triage
-  const apptDetail = await fetch(`http://localhost:5000/api/appointments/${apptId}`, {
+  const apptDetail = await fetch(`https://healthcare-appointment-manager-6f7c.onrender.com/api/appointments/${apptId}`, {
     headers: { Authorization: `Bearer ${patientToken}` },
   }).then((r) => r.json());
 
@@ -61,7 +61,7 @@ async function testFullFlow() {
   console.log('   AI Chief Complaint:', apptDetail.data.preVisitSummary?.chiefComplaint);
 
   // 7. Login as Doctor
-  const docLogin = await fetch('http://localhost:5000/api/auth/login', {
+  const docLogin = await fetch('https://healthcare-appointment-manager-6f7c.onrender.com/api/auth/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email: 'dr.sarah@healthmanager.local', password: 'Doctor@12345' }),
@@ -69,7 +69,7 @@ async function testFullFlow() {
   const docToken = docLogin.data.token;
 
   // 8. Doctor Clinical Notes & Prescription
-  const notesRes = await fetch(`http://localhost:5000/api/doctor/appointments/${apptId}/clinical-notes`, {
+  const notesRes = await fetch(`https://healthcare-appointment-manager-6f7c.onrender.com/api/doctor/appointments/${apptId}/clinical-notes`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${docToken}` },
     body: JSON.stringify({
@@ -85,7 +85,7 @@ async function testFullFlow() {
   console.log('8. Doctor Consultation Completed & Prescription Issued:', notesRes.success ? '✅ Success' : '❌ Failed');
 
   // 9. Verify Patient Medication Center
-  const medsRes = await fetch('http://localhost:5000/api/patient/medications', {
+  const medsRes = await fetch('https://healthcare-appointment-manager-6f7c.onrender.com/api/patient/medications', {
     headers: { Authorization: `Bearer ${patientToken}` },
   }).then((r) => r.json());
   console.log('9. Patient Active Medication Reminders Count:', medsRes.data.reminders.length);

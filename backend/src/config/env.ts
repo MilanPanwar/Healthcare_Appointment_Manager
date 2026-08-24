@@ -27,7 +27,7 @@ export const config = {
   google: {
     clientId: process.env.GOOGLE_CLIENT_ID || '',
     clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
-    redirectUri: process.env.GOOGLE_REDIRECT_URI || 'http://localhost:5000/api/calendar/callback',
+    redirectUri: process.env.GOOGLE_REDIRECT_URI || 'https://healthcare-appointment-manager-6f7c.onrender.com/api/calendar/callback',
   },
   worker: {
     intervalSeconds: parseInt(process.env.WORKER_INTERVAL_SECONDS || '15', 10),

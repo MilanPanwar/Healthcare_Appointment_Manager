@@ -201,7 +201,7 @@ EMAIL_FROM="HealthFlow Care <no-reply@healthflow.local>"
 # Google Calendar OAuth 2.0
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
-GOOGLE_REDIRECT_URI=http://localhost:5000/api/calendar/callback
+GOOGLE_REDIRECT_URI=https://healthcare-appointment-manager-6f7c.onrender.com/api/calendar/callback
 
 # Background Workers
 WORKER_INTERVAL_SECONDS=15
@@ -267,7 +267,7 @@ In `backend/`:
 ```bash
 npm run dev
 ```
-Backend API will start at `http://localhost:5000/api`.
+Backend API will start at `https://healthcare-appointment-manager-6f7c.onrender.com/api`.
 
 ---
 
@@ -403,12 +403,12 @@ Convert these clinical notes into a patient-friendly summary with medication sch
 2. Enable **Google Calendar API**.
 3. Configure OAuth Consent Screen.
 4. Create **OAuth 2.0 Client ID** (Web Application).
-5. Set Authorized Redirect URI to: `http://localhost:5000/api/calendar/callback`.
+5. Set Authorized Redirect URI to: `https://healthcare-appointment-manager-6f7c.onrender.com/api/calendar/callback`.
 6. Add credentials to `backend/.env`:
    ```ini
    GOOGLE_CLIENT_ID=your_client_id.apps.googleusercontent.com
    GOOGLE_CLIENT_SECRET=your_client_secret
-   GOOGLE_REDIRECT_URI=http://localhost:5000/api/calendar/callback
+   GOOGLE_REDIRECT_URI=https://healthcare-appointment-manager-6f7c.onrender.com/api/calendar/callback
    ```
 *(In development mode without credentials, Google Calendar operations degrade gracefully and record simulated tracking IDs without breaking appointment bookings).*
 

@@ -7,7 +7,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:5000',
+        target: 'https://healthcare-appointment-manager-6f7c.onrender.com',
         changeOrigin: true,
       },
     },
